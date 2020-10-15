@@ -18,3 +18,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     i2c.hpp
+    packagesExist(glib-2.0) {
+        CONFIG += link_pkgconfig
+        PKGCONFIG += glib-2.0
+    }

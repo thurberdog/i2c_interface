@@ -1,8 +1,8 @@
 #ifndef I2C_HPP
 #define I2C_HPP
 #include <QtGlobal>
-//#include <glib.h>
-//#include <glib/gprintf.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
@@ -23,7 +23,7 @@ public:
     explicit i2c(QObject *parent = nullptr);
     int file;
     char filename[40];
-    const char *buffer;
+    const gchar *buffer;
     int addr = 0b00101001;   // The I2C address of the ADC
     char buf[10] = {0};
     float data;
