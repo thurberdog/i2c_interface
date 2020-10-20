@@ -225,6 +225,9 @@ void i2c::frequency(int hz){
  * @return
  */
 char i2c::SingleByteRead(char address){
+// ADXL343
+// MASTER ->| Slave Address + Write |     | Register Address |     | Slave Address + Read |              | NACK |
+// SLAVE  <-|                       | ACK |                  | ACK |                      | ACK | | Data |
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address;
     char tx = address;
     char output = '\0';
@@ -241,6 +244,9 @@ char i2c::SingleByteRead(char address){
  * @return
  */
 int i2c::SingleByteWrite(char address, char data){
+    // ADXL343
+    // MASTER ->| Slave Address + Write |     | Register Address |     | Data |
+    // SLAVE  <-|                       | ACK |                  | ACK |      | ACK |
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address<<data;
     int ack = 0;
     char tx[2];
