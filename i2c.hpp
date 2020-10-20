@@ -63,7 +63,7 @@
 #define ADXL345_I2C_READ    0xA7
 #define ADXL345_I2C_WRITE   0xA6
 #define ADXL345_I2C_ADDRESS 0x53   //the ADXL345 7-bit address is 0x53 when ALT ADDRESS is low as it is on the sparkfun chip: when ALT ADDRESS is high the address is 0x1D
-
+#define LTC3220_I2C_ADDRESS 0x1C  // the LTC3220 7-bit address if 001 1100, or 0x1C
 /////////////when ALT ADDRESS pin is high:
 //#define ADXL345_I2C_READ    0x3B
 //#define ADXL345_I2C_WRITE   0x3A

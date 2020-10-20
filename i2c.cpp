@@ -7,7 +7,12 @@
 i2c::i2c(QObject *parent) : QObject(parent)
 {
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
-    //400kHz, allowing us to use the fastest data rates.
+//    400kHz, allowing us to use the fastest data rates.
+//    The I2C port is designed to be operated at speeds up to
+//    400kHz. It has built-in timing delays to ensure correct
+//    operation when addressed from an I2C compliant master
+//    device. It also contains input filters designed to suppress
+//    glitches should the bus become corrupted.
     frequency(400000);
     // initialize the BW data rate
     char tx[2];
