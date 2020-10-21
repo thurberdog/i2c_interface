@@ -87,10 +87,6 @@ public:
     void openI2C();
     void initiateI2C(int address);
     void frequency(int hz);
-    char SingleByteRead(char address);
-    int SingleByteWrite(char address, char data);
-    void multiByteRead(char address, char *output, int size);
-    int multiByteWrite(char address, char *ptr_data, int size);
     void getOutput(int *readings);
     char getDeviceID();
     int setPowerMode(char mode);
@@ -135,6 +131,10 @@ public:
     void sensors_ADXL_init(int address, const gchar *buffer, int length);
     int writeI2C(int address, const gchar *buffer, int length);
     void readI2C(int address, const gchar *buffer, int length);
+    char ADXL345_SingleByteRead(char address);
+    int ADXL345_SingleByteWrite(char address, char data);
+    void ADXL345_multiByteRead(char address, char *output, int size);
+    int ADXL345_multiByteWrite(char address, char *ptr_data, int size);
 signals:
 
 };

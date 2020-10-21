@@ -1,6 +1,6 @@
 QT -= gui
 CONFIG += c++11
-VERSION = 0.0.6
+VERSION = 0.0.7
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
