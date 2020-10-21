@@ -233,6 +233,7 @@ char i2c::SingleByteRead(char address){
     char output = '\0';
     writeI2C( ADXL345_I2C_WRITE , &tx, 1);  //tell it what you want to read
     readI2C( ADXL345_I2C_READ , &output, 1);    //tell it where to store the data
+    qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<output;
     return output;
 
 }
@@ -244,9 +245,9 @@ char i2c::SingleByteRead(char address){
  * @return
  */
 int i2c::SingleByteWrite(char address, char data){
-    // ADXL343
-    // MASTER ->| Slave Address + Write |     | Register Address |     | Data |
-    // SLAVE  <-|                       | ACK |                  | ACK |      | ACK |
+// ADXL343
+// MASTER ->| Slave Address + Write |     | Register Address |     | Data |
+// SLAVE  <-|                       | ACK |                  | ACK |      | ACK |
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address<<data;
     int ack = 0;
     char tx[2];
@@ -262,6 +263,9 @@ int i2c::SingleByteWrite(char address, char data){
  * @param size
  */
 void i2c::multiByteRead(char address, char* output, int size) {
+// ADXL343
+// MASTER ->| Slave Address + Write |     | Register Address |     | Slave Address + Read |              | ACK |
+// SLAVE  <-|                       | ACK |                  | ACK |                      | ACK | | Data |     | Data |
     writeI2C( ADXL345_I2C_WRITE, &address, 1);  //tell it where to read from
     readI2C( ADXL345_I2C_READ , output, size);      //tell it where to store the data read
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address<<output;
@@ -275,6 +279,9 @@ void i2c::multiByteRead(char address, char* output, int size) {
  * @return
  */
 int i2c::multiByteWrite(char address, char* ptr_data, int size) {
+// ADXL343
+// MASTER ->| Slave Address + Write |     | Register Address |     | Data |     | Data |
+// SLAVE  <-|                       | ACK |                  | ACK |      | ACK |
     int ack;
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address<<ptr_data;
     ack = writeI2C( ADXL345_I2C_WRITE, &address, 1);  //tell it where to write to
