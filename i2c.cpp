@@ -48,7 +48,7 @@ i2c::i2c(QObject *parent) : QObject(parent)
  * @param buffer
  * @param length
  */
-void i2c::sensors_ADXL_init(int address, const gchar *buffer, int length) {
+void i2c::sensors_ADXL345_init(int address, const gchar *buffer, int length) {
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<address<<buffer;
      addr = address;          // The I2C address of the ADC
     sprintf(filename,"/dev/i2c-2");
@@ -293,7 +293,7 @@ int i2c::ADXL345_multiByteWrite(char address, char* ptr_data, int size) {
  * @brief i2c::getOutput
  * @param readings
  */
-void i2c::getOutput(int* readings){
+void i2c::get_ADXL345_Output(int* readings){
     char buffer[6];
     ADXL345_multiByteRead(ADXL345_DATAX0_REG, buffer, 6);
 
@@ -308,7 +308,7 @@ void i2c::getOutput(int* readings){
  * @brief i2c::getDeviceID
  * @return
  */
-char i2c::getDeviceID() {
+char i2c::get_ADXL345_DeviceID() {
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_DEVID_REG);
 }
@@ -318,7 +318,7 @@ char i2c::getDeviceID() {
  * @param mode
  * @return
  */
-int i2c::setPowerMode(char mode) {
+int i2c::set_ADXL345_PowerMode(char mode) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<mode;
     //Get the current register contents, so we don't clobber the rate value.
     char registerContents = (mode << 4) | ADXL345_SingleByteRead(ADXL345_BW_RATE_REG);
@@ -331,7 +331,7 @@ int i2c::setPowerMode(char mode) {
  * @brief i2c::getPowerControl
  * @return
  */
-char i2c::getPowerControl() {
+char i2c::get_ADXL345_PowerControl() {
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_POWER_CTL_REG);
 }
@@ -341,7 +341,7 @@ char i2c::getPowerControl() {
  * @param settings
  * @return
  */
-int i2c::setPowerControl(char settings) {
+int i2c::set_ADXL345_PowerControl(char settings) {
     qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_POWER_CTL_REG, settings);
 
@@ -351,7 +351,7 @@ int i2c::setPowerControl(char settings) {
  * @brief i2c::getDataFormatControl
  * @return
  */
-char i2c::getDataFormatControl(void){
+char i2c::get_ADXL345_DataFormatControl(void){
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_DATA_FORMAT_REG);
 }
@@ -361,7 +361,7 @@ char i2c::getDataFormatControl(void){
  * @param settings
  * @return
  */
-int i2c::setDataFormatControl(char settings){
+int i2c::set_ADXL345_DataFormatControl(char settings){
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_DATA_FORMAT_REG, settings);
 
@@ -372,7 +372,7 @@ int i2c::setDataFormatControl(char settings){
  * @param rate
  * @return
  */
-int i2c::setDataRate(char rate) {
+int i2c::set_ADXL345_DataRate(char rate) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<rate;
     //Get the current register contents, so we don't clobber the power bit.
     char registerContents = ADXL345_SingleByteRead(ADXL345_BW_RATE_REG);
@@ -389,7 +389,7 @@ int i2c::setDataRate(char rate) {
  * @param axis
  * @return
  */
-char i2c::getOffset(char axis) {
+char i2c::get_ADXL345_Offset(char axis) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<axis;
     char address = 0;
 
@@ -410,7 +410,7 @@ char i2c::getOffset(char axis) {
  * @param offset
  * @return
  */
-int i2c::setOffset(char axis, char offset) {
+int i2c::set_ADXL345_Offset(char axis, char offset) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<axis;
     char address = 0;
 
@@ -430,7 +430,7 @@ int i2c::setOffset(char axis, char offset) {
  * @brief i2c::getFifoControl
  * @return
  */
-char i2c::getFifoControl(void){
+char i2c::get_ADXL345_FifoControl(void){
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_FIFO_CTL);
 
@@ -441,7 +441,7 @@ char i2c::getFifoControl(void){
  * @param settings
  * @return
  */
-int i2c::setFifoControl(char settings){
+int i2c::set_ADXL345_FifoControl(char settings){
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_FIFO_STATUS, settings);
 
@@ -451,7 +451,7 @@ int i2c::setFifoControl(char settings){
  * @brief i2c::getFifoStatus
  * @return
  */
-char i2c::getFifoStatus(void){
+char i2c::get_ADXL345_FifoStatus(void){
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_FIFO_STATUS);
 
@@ -462,7 +462,7 @@ char i2c::getFifoStatus(void){
  * @brief i2c::getTapThreshold
  * @return
  */
-char i2c::getTapThreshold(void) {
+char i2c::get_ADXL345_TapThreshold(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_THRESH_TAP_REG);
 }
@@ -472,7 +472,7 @@ char i2c::getTapThreshold(void) {
  * @param threshold
  * @return
  */
-int i2c::setTapThreshold(char threshold) {
+int i2c::set_ADXL345_TapThreshold(char threshold) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<threshold;
     return ADXL345_SingleByteWrite(ADXL345_THRESH_TAP_REG, threshold);
 
@@ -482,7 +482,7 @@ int i2c::setTapThreshold(char threshold) {
  * @brief i2c::getTapDuration
  * @return
  */
-float i2c::getTapDuration(void) {
+float i2c::get_ADXL345_TapDuration(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return (float)ADXL345_SingleByteRead(ADXL345_DUR_REG)*625;
 }
@@ -492,7 +492,7 @@ float i2c::getTapDuration(void) {
  * @param duration_us
  * @return
  */
-int i2c::setTapDuration(short int duration_us) {
+int i2c::set_ADXL345_TapDuration(short int duration_us) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<duration_us;
     short int tapDuration = duration_us / 625;
     char tapChar[2];
@@ -506,7 +506,7 @@ int i2c::setTapDuration(short int duration_us) {
  * @brief i2c::getTapLatency
  * @return
  */
-float i2c::getTapLatency(void) {
+float i2c::get_ADXL345_TapLatency(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return (float)ADXL345_SingleByteRead(ADXL345_LATENT_REG)*1.25;
 }
@@ -516,7 +516,7 @@ float i2c::getTapLatency(void) {
  * @param latency_ms
  * @return
  */
-int i2c::setTapLatency(short int latency_ms) {
+int i2c::set_ADXL345_TapLatency(short int latency_ms) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<latency_ms;
     latency_ms = latency_ms / 1.25;
     char latChar[2];
@@ -530,7 +530,7 @@ int i2c::setTapLatency(short int latency_ms) {
  * @brief i2c::getWindowTime
  * @return
  */
-float i2c::getWindowTime(void) {
+float i2c::get_ADXL345_WindowTime(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return (float)ADXL345_SingleByteRead(ADXL345_WINDOW_REG)*1.25;
 }
@@ -540,7 +540,7 @@ float i2c::getWindowTime(void) {
  * @param window_ms
  * @return
  */
-int i2c::setWindowTime(short int window_ms) {
+int i2c::set_ADXL345_WindowTime(short int window_ms) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<window_ms;
     window_ms = window_ms / 1.25;
     char windowChar[2];
@@ -554,7 +554,7 @@ int i2c::setWindowTime(short int window_ms) {
  * @brief i2c::getActivityThreshold
  * @return
  */
-char i2c::getActivityThreshold(void) {
+char i2c::get_ADXL345_ActivityThreshold(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_THRESH_ACT_REG);
 }
@@ -564,7 +564,7 @@ char i2c::getActivityThreshold(void) {
  * @param threshold
  * @return
  */
-int i2c::setActivityThreshold(char threshold) {
+int i2c::set_ADXL345_ActivityThreshold(char threshold) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<threshold;
     return ADXL345_SingleByteWrite(ADXL345_THRESH_ACT_REG, threshold);
 
@@ -574,7 +574,7 @@ int i2c::setActivityThreshold(char threshold) {
  * @brief i2c::getInactivityThreshold
  * @return
  */
-char i2c::getInactivityThreshold(void) {
+char i2c::get_ADXL345_InactivityThreshold(void) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_THRESH_INACT_REG);
 
@@ -585,7 +585,7 @@ char i2c::getInactivityThreshold(void) {
  * @param threshold
  * @return
  */
-int i2c::setInactivityThreshold(char threshold) {
+int i2c::set_ADXL345_InactivityThreshold(char threshold) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<threshold;
     return ADXL345_SingleByteWrite(ADXL345_THRESH_INACT_REG, threshold);
 
@@ -595,7 +595,7 @@ int i2c::setInactivityThreshold(char threshold) {
  * @brief i2c::getTimeInactivity
  * @return
  */
-char i2c::getTimeInactivity(void) {
+char i2c::get_ADXL345_TimeInactivity(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_TIME_INACT_REG);
 
@@ -606,7 +606,7 @@ char i2c::getTimeInactivity(void) {
  * @param timeInactivity
  * @return
  */
-int i2c::setTimeInactivity(char timeInactivity) {
+int i2c::set_ADXL345_TimeInactivity(char timeInactivity) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<timeInactivity;
     return ADXL345_SingleByteWrite(ADXL345_TIME_INACT_REG, timeInactivity);
 
@@ -616,7 +616,7 @@ int i2c::setTimeInactivity(char timeInactivity) {
  * @brief i2c::getActivityInactivityControl
  * @return
  */
-char i2c::getActivityInactivityControl(void) {
+char i2c::get_ADXL345_ActivityInactivityControl(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_ACT_INACT_CTL_REG);
 
@@ -627,7 +627,7 @@ char i2c::getActivityInactivityControl(void) {
  * @param settings
  * @return
  */
-int i2c::setActivityInactivityControl(char settings) {
+int i2c::set_ADXL345_ActivityInactivityControl(char settings) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_ACT_INACT_CTL_REG, settings);
 
@@ -637,7 +637,7 @@ int i2c::setActivityInactivityControl(char settings) {
  * @brief i2c::getFreefallThreshold
  * @return
  */
-char i2c::getFreefallThreshold(void) {
+char i2c::get_ADXL345_FreefallThreshold(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_THRESH_FF_REG);
 
@@ -648,7 +648,7 @@ char i2c::getFreefallThreshold(void) {
  * @param threshold
  * @return
  */
-int i2c::setFreefallThreshold(char threshold) {
+int i2c::set_ADXL345_FreefallThreshold(char threshold) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<threshold;
     return ADXL345_SingleByteWrite(ADXL345_THRESH_FF_REG, threshold);
 
@@ -658,7 +658,7 @@ int i2c::setFreefallThreshold(char threshold) {
  * @brief i2c::getFreefallTime
  * @return
  */
-char i2c::getFreefallTime(void) {
+char i2c::get_ADXL345_FreefallTime(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_TIME_FF_REG)*5;
 
@@ -669,7 +669,7 @@ char i2c::getFreefallTime(void) {
  * @param freefallTime_ms
  * @return
  */
-int i2c::setFreefallTime(short int freefallTime_ms) {
+int i2c::set_ADXL345_FreefallTime(short int freefallTime_ms) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<freefallTime_ms;
     freefallTime_ms = freefallTime_ms / 5;
     char fallChar[2];
@@ -684,7 +684,7 @@ int i2c::setFreefallTime(short int freefallTime_ms) {
  * @brief i2c::getTapAxisControl
  * @return
  */
-char i2c::getTapAxisControl(void) {
+char i2c::get_ADXL345_TapAxisControl(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_TAP_AXES_REG);
 
@@ -695,7 +695,7 @@ char i2c::getTapAxisControl(void) {
  * @param settings
  * @return
  */
-int i2c::setTapAxisControl(char settings) {
+int i2c::set_ADXL345_TapAxisControl(char settings) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_TAP_AXES_REG, settings);
 
@@ -705,7 +705,7 @@ int i2c::setTapAxisControl(char settings) {
  * @brief i2c::getTapSource
  * @return
  */
-char i2c::getTapSource(void) {
+char i2c::get_ADXL345_TapSource(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_ACT_TAP_STATUS_REG);
 
@@ -716,7 +716,7 @@ char i2c::getTapSource(void) {
  * @brief i2c::getInterruptEnableControl
  * @return
  */
-char i2c::getInterruptEnableControl(void) {
+char i2c::get_ADXL345_InterruptEnableControl(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_INT_ENABLE_REG);
 
@@ -727,7 +727,7 @@ char i2c::getInterruptEnableControl(void) {
  * @param settings
  * @return
  */
-int i2c::setInterruptEnableControl(char settings) {
+int i2c::set_ADXL345_InterruptEnableControl(char settings) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_INT_ENABLE_REG, settings);
 
@@ -737,7 +737,7 @@ int i2c::setInterruptEnableControl(char settings) {
  * @brief i2c::getInterruptMappingControl
  * @return
  */
-char i2c::getInterruptMappingControl(void) {
+char i2c::get_ADXL345_InterruptMappingControl(void) {
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_INT_MAP_REG);
 
@@ -748,7 +748,7 @@ char i2c::getInterruptMappingControl(void) {
  * @param settings
  * @return
  */
-int i2c::setInterruptMappingControl(char settings) {
+int i2c::set_ADXL345_InterruptMappingControl(char settings) {
      qDebug()<<__FUNCTION__<<__LINE__<<"I2C"<<settings;
     return ADXL345_SingleByteWrite(ADXL345_INT_MAP_REG, settings);
 
@@ -758,7 +758,7 @@ int i2c::setInterruptMappingControl(char settings) {
  * @brief i2c::getInterruptSource
  * @return
  */
-char i2c::getInterruptSource(void){
+char i2c::get_ADXL345_InterruptSource(void){
  qDebug()<<__FUNCTION__<<__LINE__<<"I2C";
     return ADXL345_SingleByteRead(ADXL345_INT_SOURCE_REG);
 
