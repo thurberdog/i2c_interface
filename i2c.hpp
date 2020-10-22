@@ -63,7 +63,7 @@
 #define ADXL345_I2C_READ    0xA7
 #define ADXL345_I2C_WRITE   0xA6
 #define ADXL345_I2C_ADDRESS 0x53   //the ADXL345 7-bit address is 0x53 when ALT ADDRESS is low as it is on the sparkfun chip: when ALT ADDRESS is high the address is 0x1D
-#define LTC3220_I2C_ADDRESS 0x1C  // the LTC3220 7-bit address if 001 1100, or 0x1C
+
 /////////////when ALT ADDRESS pin is high:
 //#define ADXL345_I2C_READ    0x3B
 //#define ADXL345_I2C_WRITE   0x3A
@@ -72,6 +72,31 @@
 #define ADXL345_Y           0x01
 #define ADXL345_Z           0x02
 
+#define LTC3220_I2C_ADDRESS 0x1C  // the LTC3220 7-bit address if 001 1100, or 0x1C
+#define LTC3220_WRITE       0x28  // Address + Write
+
+// RegistersSub-Address Byte
+#define LTC3220_REG0        0x00  // command
+#define LTC3220_REG1        0x01  // ULED1
+#define LTC3220_REG2        0x02  // ULED2
+#define LTC3220_REG3        0x03  // ULED3
+#define LTC3220_REG4        0x04  // ULED4
+#define LTC3220_REG5        0x05  // ULED5
+#define LTC3220_REG6        0x06  // ULED6
+#define LTC3220_REG7        0x07  // ULED7
+#define LTC3220_REG8        0x08  // ULED8
+#define LTC3220_REG9        0x09  // ULED9
+#define LTC3220_REG10       0x0A  // ULED10
+#define LTC3220_REG11       0x0B  // ULED11
+#define LTC3220_REG12       0x0C  // ULED12
+#define LTC3220_REG13       0x0D  // ULED13
+#define LTC3220_REG14       0x0E  // ULED14
+#define LTC3220_REG15       0x0F  // ULED15
+#define LTC3220_REG16       0x10  // ULED16
+#define LTC3220_REG17       0x11  // ULED17
+#define LTC3220_REG18       0x12  // ULED18
+#define LTC3220_REG19       0x13  // GRAD/BLINK
+
 class i2c : public QObject
 {
     Q_OBJECT
@@ -79,7 +104,6 @@ public:
     explicit i2c(QObject *parent = nullptr);
     int file;
     char filename[40];
-//    const gchar *buffer;
     int addr = 0b00101001;   // The I2C address of the ADC
     char buf[10] = {0};
     float data;
